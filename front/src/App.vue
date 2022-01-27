@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Todo App</h1>
+    <h1>Life check</h1>
     <p v-for="user in state.users" v-bind:key="user.id">
       {{ user.nickname }}
     </p>
