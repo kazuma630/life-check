@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <h1>Life check</h1>
-    <p v-for="user in state.users" v-bind:key="user.id">
-      {{ user.nickname }}
-    </p>
+    <div v-for="user in state.users" v-bind:key="user.id">
+      <p>{{ user.nickname }}</p>
+      <p>{{ moment(user.birth_at, 'MMMM Do YYYY') }}</p>
+    </div>
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import { defineComponent, reactive, onMounted } from 'vue' // defineComponent関数（TypeScriptを取り入れる場合に必要）などを読み込む
 import { getUsers } from './lib/api/users' // APIを呼び出すための関数を読み込む
 import { User } from './interfaces/index' // 型定義を読み込む
+import moment from "moment"
 
 interface State {
   users: User[]
@@ -18,6 +20,11 @@ interface State {
 }
 
 export default defineComponent({
+  methods: {
+    moment(date: {date: any}, format: {format: any}) {
+      return moment(date).format(format)
+    }
+  },
   setup() {
     const state = reactive<State>({
       users: [],
