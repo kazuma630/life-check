@@ -22,7 +22,7 @@ interface State {
 export default defineComponent({
   methods: {
     moment(date: {date: any}) {
-      return moment(date).format('YYYY/MM/DD HH:mm:SS')
+      return moment(date).format('YYYY/MM/DD')
     }
   },
   setup() {
