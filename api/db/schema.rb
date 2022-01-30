@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_21_130354) do
+ActiveRecord::Schema.define(version: 2022_01_30_111048) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "nickname", null: false, comment: "ニックネーム"
+    t.string "sex", limit: 1, default: "0", null: false, comment: "0: 不明, 1: 男性, 2: 女性, 9: 適用不能"
     t.datetime "birth_at", null: false, comment: "誕生日"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
