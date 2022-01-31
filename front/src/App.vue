@@ -3,7 +3,7 @@
     <h1>Life check</h1>
     <div v-for="user in state.users" v-bind:key="user.id">
       <p>{{ user.nickname }}さん</p>
-      <p>{{ age(user.birth_at) }}歳</p>
+      <p>{{ age(user.birth_at, user.sex) }}歳</p>
     </div>
   </div>
 </template>
@@ -18,21 +18,16 @@ interface State {
   users: User[]
   nickname: string
   birth_at: string
+  sex: string
 }
 
 export default defineComponent({
-  // ユーザーの年齢取得
-  methods: {
-    age(date: {date: any}) {
-      const birthday = moment(date).format('YYYY/MM/DD')
-      return moment().diff(birthday, 'year')
-    }
-  },
   setup() {
     const state = reactive<State>({
       users: [],
       nickname: '',
-      birth_at: ''
+      birth_at: '',
+      sex: ''
     })
 
     // ユーザー一覧を取得
@@ -48,13 +43,27 @@ export default defineComponent({
       }
     }
 
+    // ユーザーの年齢取得
+    const age = (date: {date: any}, sex: string) => {
+      const birthYear = moment(date).format('YYYY-MM-DD')
+      console.log(birthYear)
+      console.log(sex)
+      if (sex == '1') {
+        const birthEnd = moment(birthYear).add(82, 'y').format('YYYY-MM-DD')
+      }  else if (sex === '2') {
+        const birthEnd = moment(birthYear).add(88, 'y').format('YYYY-MM-DD')
+      }
+      // 残り日数/月/時間を算出
+    }
+
     // Vueインスタンスがマウントされるたびに実行
     onMounted(() => {
       handleGetUsers()
     })
 
     return {
-      state
+      state,
+      age
     }
   }
 })
