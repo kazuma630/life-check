@@ -2,8 +2,8 @@
   <div id="app">
     <h1>Life check</h1>
     <div v-for="user in state.users" v-bind:key="user.id">
-      <p>{{ user.nickname }}</p>
-      <p>{{ moment(user.birth_at, 'MMMM Do YYYY') }}</p>
+      <p>{{ user.nickname }}さん</p>
+      <p>{{ age(user.birth_at) }}歳</p>
     </div>
   </div>
 </template>
@@ -17,18 +17,22 @@ import moment from "moment"
 interface State {
   users: User[]
   nickname: string
+  birth_at: string
 }
 
 export default defineComponent({
+  // ユーザーの年齢取得
   methods: {
-    moment(date: {date: any}) {
-      return moment(date).format('YYYY/MM/DD')
+    age(date: {date: any}) {
+      const birthday = moment(date).format('YYYY/MM/DD')
+      return moment().diff(birthday, 'year')
     }
   },
   setup() {
     const state = reactive<State>({
       users: [],
-      nickname: ''
+      nickname: '',
+      birth_at: ''
     })
 
     // ユーザー一覧を取得
