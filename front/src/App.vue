@@ -3,7 +3,7 @@
     <h1>Life check</h1>
     <div v-for="user in state.users" v-bind:key="user.id">
       <p>{{ user.nickname }}さん</p>
-      <p>{{ age(user.birth_at, user.sex) }}歳</p>
+      <p>残された時間: {{ remainingHours(user.birth_at, user.sex) }}</p>
     </div>
   </div>
 </template>
@@ -43,17 +43,16 @@ export default defineComponent({
       }
     }
 
-    // ユーザーの年齢取得
-    const age = (date: {date: any}, sex: string) => {
+    // 残り時間
+    const remainingHours = (date: {date: any}, sex: string) => {
       const birthYear = moment(date).format('YYYY-MM-DD')
-      console.log(birthYear)
-      console.log(sex)
       if (sex == '1') {
-        const birthEnd = moment(birthYear).add(82, 'y').format('YYYY-MM-DD')
+        let birthEnd = moment(birthYear).add(82, 'y').format('YYYY-MM-DD');
+        return moment(birthEnd).diff(birthYear, 'hours');
       }  else if (sex === '2') {
-        const birthEnd = moment(birthYear).add(88, 'y').format('YYYY-MM-DD')
+        let birthEnd = moment(birthYear).add(88, 'y').format('YYYY-MM-DD');
+        return moment(birthEnd).diff(birthYear, 'hours');
       }
-      // 残り日数/月/時間を算出
     }
 
     // Vueインスタンスがマウントされるたびに実行
@@ -63,7 +62,7 @@ export default defineComponent({
 
     return {
       state,
-      age
+      remainingHours
     }
   }
 })
