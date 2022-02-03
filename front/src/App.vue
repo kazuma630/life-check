@@ -3,7 +3,7 @@
     <h1>Life check</h1>
     <div v-for="user in state.users" v-bind:key="user.id">
       <p>{{ user.nickname }}さん</p>
-      <p>残された時間: {{ remainingHours(user.birth_at, user.sex) }}</p>
+      <p class="font-bold">残された時間: {{ remainingHours(user.birth_at, user.sex) }}</p>
     </div>
   </div>
 </template>
